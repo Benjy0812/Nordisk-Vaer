@@ -1,5 +1,5 @@
 {
-  "name": "webweather",
+  "name": "nordisk-vaer",
   "type": "module",
   "devDependencies": {
     "@tailwindcss/vite": "^4.3.0",
