@@ -1,34 +1,34 @@
 import { getLocation, fetchWeather } from './api.js'
-import { capitalizeFirstLetter, displayCurrentWeather } from './ui.js'
 import { getCordsFromLocation } from './state.js'
+import { capitalizeFirstLetter, displayCurrentWeather, setupTempToggle } from './ui.js'
 
 async function getWeather() {
-  // Get the location input from the user
+  // Get the location name from users location input
   const locationName = document.getElementById('location-input').value.trim()
-  const capitalizedLocationName = capitalizeFirstLetter(locationName)
-  document.getElementById('location-title').textContent =
-    capitalizedLocationName
   if (!locationName) {
     alert('Please enter a location')
     return
   }
+  document.getElementById('location-title').textContent =
+    capitalizeFirstLetter(locationName)
+
   try {
-    // Fetch lat and lon for the location
-    const locationCordinates = await getLocation(locationName)
-    if (!locationCordinates.length) {
-      throw new Error('Location not found')
+    // Fetch latitude and longitude from users location input
+    const locationCoordinates = await getLocation(locationName)
+    if (!locationCoordinates.length) {
+      alert('Location not found')
+      return
     }
-    // then fetch and display the weather data
-    const { lat, lon } = getCordsFromLocation(locationCordinates)
+    // Fetch weather data with latitude and longitude and display weather
+    const { lat, lon } = getCordsFromLocation(locationCoordinates)
     const weatherData = await fetchWeather(lat, lon)
     displayCurrentWeather(weatherData)
+    setupTempToggle()
   } catch (err) {
     console.error(err)
     alert(err.message)
   }
 }
-
-// window.onload = () => getWeather()
 
 const fetchButton = document.getElementById('fetch-button')
 fetchButton.addEventListener('click', () => getWeather())
