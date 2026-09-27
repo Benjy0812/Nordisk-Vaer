@@ -1,25 +1,41 @@
+let air_temperature = null
+
+// Capitalizes string passed, first letter is uppercase and rest is lowercase
 export function capitalizeFirstLetter(str) {
   return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()
 }
 
-// Display the current weather data on the page
+// setup temp toggle
+export function setupTempToggle() {
+  const tempToggle = document.getElementById('temp-toggle')
+  tempToggle.addEventListener('change', () => {
+    updateTemperature(air_temperature)
+  })
+}
+
+// gets data from JSON and displays fetched weather data
 export function displayCurrentWeather(data) {
   const current = data.properties.timeseries[0]
   const {
     air_pressure_at_sea_level,
-    air_temperature,
+    air_temperature: air_temp,
     cloud_area_fraction,
     relative_humidity,
     wind_from_direction,
     wind_speed,
   } = current.data.instant.details
-  const symbolCode = current.data.next_1_hours.summary.symbol_code
 
-  // Update the DOM elements with the fetched weather data
+  air_temperature = air_temp
+
+  //noinspection JSUnresolvedVariable, JSDeprecatedSymbols
+  const symbolCode =
+    current.data.next_1_hours?.summary?.symbol_code ?? 'Unknown'
+
+  // Update the weather DOM elements with the fetched weather data
   document.getElementById('temp').textContent =
     `Temperatur: ${air_temperature} °C`
   document.getElementById('pressure').textContent =
-    `Tryk: ${air_pressure_at_sea_level} hPa`
+    `Trykk: ${air_pressure_at_sea_level} hPa`
   document.getElementById('humidity').textContent =
     `Luftfuktighet: ${relative_humidity} %`
   document.getElementById('clouds').textContent =
@@ -30,10 +46,6 @@ export function displayCurrentWeather(data) {
 
   updateTemperature(air_temperature)
 
-  const tempToggle = document.getElementById('temp-toggle')
-  tempToggle.addEventListener('change', () => {
-    updateTemperature(air_temperature)
-  })
   const canvas = document.getElementById('arrow')
   const ctx = canvas.getContext('2d')
   arrowDirection(
@@ -45,10 +57,12 @@ export function displayCurrentWeather(data) {
   )
 }
 
+// Draws a wind line from center (cx, cy). wind_from_direction is degrees from MET (0=N, 90=E, direction wind comes FROM).
+// NOTE: no +180 applied, so line currently points back toward where wind comes FROM, not where it blows TO.
 export function arrowDirection(ctx, cx, cy, wind_from_direction, length) {
-  const blowTo = (wind_from_direction + 180) % 360
+  const blowTo = (wind_from_direction) % 360
 
-  // convert degress to radiance
+  // Degrees to radians for Math.sin / Math.cos
   const rad = (blowTo * Math.PI) / 180
 
   const horizontal = cx + Math.sin(rad) * length
