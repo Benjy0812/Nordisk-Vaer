@@ -13,14 +13,14 @@
       <h1 class="mx-auto my-2.5">Nordisk Vær</h1>
       <div class="mx-auto my-0 flex max-w-125 flex-wrap justify-center gap-2">
         <input
-          class="m-0 min-w-30 flex-1 rounded border border-[#cccccc] p-2"
+          class="m-0 min-w-30 flex-1 rounded border border-neutral-300 p-2"
           type="text"
           id="location-input"
-          value="Tromsø"
+          aria-label="Lokasjon"
           placeholder="Lokasjon"
         />
         <button
-          class="m-0 flex rounded border border-[#cccccc] bg-white px-3 py-2 hover:cursor-pointer hover:bg-[#f0f0f0]"
+          class="m-0 flex rounded border border-neutral-300 bg-white px-3 py-2 hover:cursor-pointer hover:bg-zinc-100"
           id="fetch-button"
           type="button"
         >
@@ -29,6 +29,7 @@
         <select
           class="w-15 rounded-md border border-gray-500 text-center"
           id="temp-toggle"
+          aria-label="Temperaturenhet"
         >
           <option value="Celsius">°C</option>
           <option value="Fahrenheit">°F</option>
@@ -90,18 +91,18 @@
     </main>
     <footer class="mt-auto flex flex-col items-center">
       <p>
-        © 2026 Basert på data fra
+        &copy; 2026 Basert på data fra
         <a href="https://www.met.no/" target="_blank">MET</a>
       </p>
       <p class="text-center">
-        <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">
+        <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">
           <img
             class="mx-auto"
             alt="Creative Commons-lisens"
             src="https://i.creativecommons.org/l/by/4.0/88x31.png"
           /> </a
         >Dette verk er lisensieret under en
-        <a rel="license" href="http://creativecommons.org/licenses/by/4.0/"
+        <a rel="license" href="https://creativecommons.org/licenses/by/4.0/"
           >Creative Commons Navngivelse 4.0 Internasjonal lisens</a
         >
       </p>
