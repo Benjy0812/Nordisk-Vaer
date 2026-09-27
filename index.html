@@ -27,7 +27,7 @@
           Hent
         </button>
         <select
-          class="w-15 rounded-md border border-gray-500 text-center"
+          class="w-15 rounded-md border border-neutral-300 text-center"
           id="temp-toggle"
           aria-label="Temperaturenhet"
         >
@@ -35,8 +35,14 @@
           <option value="Fahrenheit">°F</option>
         </select>
       </div>
+      <p
+        id="search-error"
+        class="mx-auto my-2 inline-block max-w-125 rounded border border-neutral-300 p-2 font-bold text-red-600"
+        role="alert"
+        hidden
+      ></p>
     </header>
-    <main>
+    <main id="weather-info" hidden>
       <p class="mx-auto my-2.5 font-bold" id="location-title">Tromsø</p>
       <div
         class="inline-flex transform-gpu flex-col items-center gap-2 will-change-transform *:cursor-pointer *:transition-transform *:duration-100 *:hover:scale-125"
