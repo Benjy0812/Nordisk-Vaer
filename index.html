@@ -11,6 +11,7 @@
   >
     <header>
       <h1 class="mx-auto my-2.5">Nordisk Vær</h1>
+      <!-- Search controls. IDs are a contract: location-input/fetch-button/temp-toggle are read by src/main.js -->
       <div class="mx-auto my-0 flex max-w-125 flex-wrap justify-center gap-2">
         <input
           class="m-0 min-w-30 flex-1 rounded border border-neutral-300 p-2"
@@ -35,6 +36,7 @@
           <option value="Fahrenheit">°F</option>
         </select>
       </div>
+      <!-- Inline error. role=alert announces it to screen readers; hidden until main.js fills it -->
       <p
         id="search-error"
         class="mx-auto my-2 inline-block max-w-125 rounded border border-neutral-300 p-2 font-bold text-red-600"
@@ -42,6 +44,7 @@
         hidden
       ></p>
     </header>
+    <!-- Results. Stays hidden until first success so placeholder 0.0 values never show. IDs must match src/ui.js -->
     <main id="weather-info" hidden>
       <p class="mx-auto my-2.5 font-bold" id="location-title">Tromsø</p>
       <div
@@ -95,6 +98,7 @@
         ></canvas>
       </div>
     </main>
+    <!-- Attribution required by MET terms + CC-BY 4.0; keep readable, not dominant -->
     <footer class="mt-auto flex flex-col items-center">
       <p>
         &copy; 2026 Basert på data fra
