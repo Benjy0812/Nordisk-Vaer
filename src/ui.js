@@ -58,9 +58,9 @@ export function displayCurrentWeather(data) {
 }
 
 // Draws a wind line from center (cx, cy). wind_from_direction is degrees from MET (0=N, 90=E, direction wind comes FROM).
-// NOTE: no +180 applied, so line currently points back toward where wind comes FROM, not where it blows TO.
+// +180 converts it to the direction the wind blows TO.
 export function arrowDirection(ctx, cx, cy, wind_from_direction, length) {
-  const blowTo = wind_from_direction % 360
+  const blowTo = (wind_from_direction + 180) % 360
 
   // Degrees to radians for Math.sin / Math.cos
   const rad = (blowTo * Math.PI) / 180
