@@ -44,5 +44,7 @@ async function getWeather() {
   }
 }
 
-const fetchButton = document.getElementById('fetch-button')
-fetchButton.addEventListener('click', () => getWeather())
+document.getElementById('weather-form').addEventListener('submit', (event) => {
+  event.preventDefault()
+  void getWeather()
+})

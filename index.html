@@ -12,7 +12,10 @@
     <header>
       <h1 class="mx-auto my-2.5">Nordisk Vær</h1>
       <!-- Search boxes. The IDs here are used in main.js, don't rename them -->
-      <div class="mx-auto my-0 flex max-w-125 flex-wrap justify-center gap-2">
+      <form
+        id="weather-form"
+        class="mx-auto my-0 flex max-w-125 flex-wrap justify-center gap-2"
+      >
         <input
           class="m-0 min-w-30 flex-1 rounded border border-neutral-300 p-2"
           type="text"
@@ -23,7 +26,7 @@
         <button
           class="m-0 flex rounded border border-neutral-300 bg-white px-3 py-2 hover:cursor-pointer hover:bg-zinc-100"
           id="fetch-button"
-          type="button"
+          type="submit"
         >
           Hent
         </button>
@@ -35,7 +38,7 @@
           <option value="Celsius">°C</option>
           <option value="Fahrenheit">°F</option>
         </select>
-      </div>
+      </form>
       <!-- Error message. Hidden until something goes wrong -->
       <p
         id="search-error"
