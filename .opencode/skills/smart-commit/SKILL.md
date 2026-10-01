@@ -1,27 +1,27 @@
 ---
-name: Smart Commit
-description: Group changed files into logical commits by dependency and similarity, then commit each group separately
+name: smart-commit
+description: Use when the user asks to commit, split a commit, or write commit messages. Group changed files into logical commits by dependency and similarity, then commit each group separately.
 ---
 
 # Smart Commit
 
 Split working-tree changes into one logical change per commit instead of
-one big commit. Two files belong in the same commit when they are **used by
-each other** or their changes are **nearly identical**.
+one big commit. Inspect, group, verify, commit, report. Keep it simple.
 
-## 1. Survey
+## 1. Inspect
 
 Run from the repo root:
 
 ```sh
 git status --short
 git diff --stat
-git diff
+git log --oneline -5
 ```
 
-Include untracked files with `git status` output. Never commit files the
-user did not ask about (secrets, `.env`, unrelated scratch files) — ask
-first.
+First column = staged, second = unstaged. A `D` or `M` in the first column was
+staged by someone else — never commit staged surprises blindly. Check with
+`git diff --cached`. Include untracked files in the survey. Never commit files
+the user did not ask about (secrets, `.env`, unrelated scratch files).
 
 ## 2. Group
 
@@ -29,8 +29,8 @@ Build groups using these rules, in order:
 
 1. **Used by each other → same commit.** A HTML element ID referenced in
    JS (`index.html` ↔ `src/*.js`), an import pair (`main.js` → `ui.js`),
-   config consumed by code (`vite.config.js` ↔ build output). Changing one
-   side without the other breaks the build, so they commit together.
+   config consumed by code. Changing one side without the other breaks the
+   build, so they commit together.
 2. **Nearly identical → same commit.** The same mechanical edit repeated
    across files or hunks: a class rename in 6 places, placeholder text
    cleared from 6 tags, typo fixed in 3 files. One commit, even if the
@@ -54,11 +54,31 @@ Match this repo: short imperative, no prefix, no scope.
 - Bad: `feat(ui): ...`, `fixed stuff`, `WIP`
 
 One behavior per message. If a message needs "and", it is probably two
-commits.
+commits. Add `Refs: GIT-n` when the commit advances a Linear issue —
+never invent IDs.
 
 ## 5. Verify per group
 
 After staging each group (`git add <files>`), run the cheapest relevant
 check before committing — at minimum `bun run build` for code/UI/config
-changes, `bun run format:check` for formatting. Stage, verify, commit,
-repeat for the next group.
+changes, `bunx prettier --check <files>` for formatting. Both must pass.
+Always bun, no npm variants. Prettier failing right after a checkout
+usually means CRLF — fix with `prettier --write`, never commit
+line-ending noise. Stage, verify, commit, repeat for the next group.
+
+## 6. Split
+
+`amend` cannot split — it only edits the tip. Unmake and re-commit with
+staged patches:
+
+```sh
+git reset --soft HEAD~1
+git restore --staged <file>
+```
+
+Local unpushed commits only. Never `--hard`, `--force`, or push unasked.
+
+## 7. Report
+
+Show `git log --oneline -3` and `git status --short`. Name what's left out
+and why. Flag anything odd (mystery deletions, untracked files).
