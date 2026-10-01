@@ -6,8 +6,8 @@ export default defineConfig({
   base: '/Nordisk-Vaer/',
   // Force full page reload on CSS changes
   plugins: [
-    tailwindcss(),
-    {
+    ...tailwindcss(),
+    /** @type {import('vite').Plugin} */ ({
       name: 'force-reload-on-css-change',
       handleHotUpdate({ file, server }) {
         if (file.endsWith('.css')) {
@@ -15,6 +15,6 @@ export default defineConfig({
           return []
         }
       },
-    },
+    }),
   ],
 })
