@@ -54,8 +54,9 @@ Match this repo: short imperative, no prefix, no scope.
 - Bad: `feat(ui): ...`, `fixed stuff`, `WIP`
 
 One behavior per message. If a message needs "and", it is probably two
-commits. Add `Refs: GIT-n` when the commit advances a Linear issue —
-never invent IDs.
+commits. A stranger reading the log should understand every message — no
+insider references, no backstory only you know. Add `Refs: GIT-n` when the
+commit advances a Linear issue — never invent IDs.
 
 ## 5. Verify per group
 
