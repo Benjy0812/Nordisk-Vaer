@@ -1,4 +1,4 @@
-import { getLocation, fetchWeather } from './api.js'
+import { fetchWeather, getLocation } from './api.js'
 import { getCordsFromLocation } from './state.js'
 import {
   capitalizeFirstLetter,
@@ -36,6 +36,7 @@ async function getWeather() {
       capitalizeFirstLetter(locationName)
     displayCurrentWeather(weatherData)
     setupTempToggle()
+    document.getElementById('initial-message').hidden = true
     document.getElementById('weather-info').hidden = false
   } catch (err) {
     console.error(err)
