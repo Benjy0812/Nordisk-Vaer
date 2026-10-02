@@ -46,10 +46,22 @@ List the planned groups with files and a draft message per group, then
 wait for approval. Never push. Commit only after the user approves the
 plan (or explicitly asked for auto-commit).
 
+Always confirm before committing, naming the exact file and the exact
+message:
+
+> Commit `index.html` — `Add Nominatim attribution to footer`?
+> OK?
+
+No confirmation, no commit — even when the change looks obvious, even
+when it is one file, even when the message seems forced. Approval is cheap
+to ask for and expensive to skip.
+
 **If the user scopes the request** ("commit only X", "just the README",
-"only that file"), treat it as the complete plan: no proposal round, no
-mention of other changed or untracked files. Touch nothing else — not even
-in the report. Scope means scope.
+"only that file"), that is the whole plan: skip the multi-group proposal
+and do not mention other changed or untracked files. Touch nothing else —
+not even in the report. Scope means scope. Still confirm the file and the
+message before committing, because a scoped request names the file, not
+the message.
 
 ## 4. Message style
 
