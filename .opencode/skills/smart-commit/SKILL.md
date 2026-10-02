@@ -46,6 +46,11 @@ List the planned groups with files and a draft message per group, then
 wait for approval. Never push. Commit only after the user approves the
 plan (or explicitly asked for auto-commit).
 
+**If the user scopes the request** ("commit only X", "just the README",
+"only that file"), treat it as the complete plan: no proposal round, no
+mention of other changed or untracked files. Touch nothing else — not even
+in the report. Scope means scope.
+
 ## 4. Message style
 
 Match this repo: short imperative, no prefix, no scope.
