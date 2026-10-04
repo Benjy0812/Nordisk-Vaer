@@ -72,7 +72,7 @@ Match this repo: short imperative, no prefix, no scope.
 
 One behavior per message. If a message needs "and", it is probably two
 commits. A stranger reading the log should understand every message — no
-insider references, no backstory only you know. Add `Refs: GIT-n` when the
+insider references, no backstory only you know. Add `Refs: BEN-n` when the
 commit advances a Linear issue — never invent IDs.
 
 ## 5. Verify per group
