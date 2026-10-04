@@ -18,25 +18,25 @@ Krav:
 
 Installer dependencies:
 
-```sh
+```bash
 bun install
 ```
 
 Start dev server:
 
-```sh
+```bash
 bun run dev
 ```
 
 Bygg for produksjon:
 
-```sh
+```bash
 bun run build
 ```
 
 Formatering:
 
-```sh
+```bash
 bun run format
 ```
 
@@ -50,18 +50,22 @@ Se `ROADMAP.md` for hva som gjenstår før v1.0.
 
 ## Om AI-bruk
 
-Jeg bruker AI til repetitive oppgaver og som lærehjelp. Jeg skriver alt selv — ingenting kopieres inn uforstått. Alt er gjennomgått av meg før det committes.
+Jeg bruker AI til repetitive oppgaver og som lærehjelp. Jeg skriver alt selv ingenting kopieres inn uforstått. Alt er gjennomgått av meg før det committes.
 
-## Datakilder og lisensiering
+## Lisens
+
+Dette prosjektet bruker tre forskjellige lisenser. Koden er min, dataene er ikke.
+
+- Koden i dette prosjektet: MIT se [LICENSE](LICENSE)
+- Værdata fra MET Norway: NLOD 2.0 og CC BY 4.0
+- Stedsdata fra OpenStreetMap: ODbL
+
+### MET Norway
 
 Værdata fra [MET Norway](https://www.met.no), lisensiert under NLOD 2.0 og CC BY 4.0.
 
----
+### OpenStreetMap
 
-Stedssøk via [Nominatim](https://nominatim.openstreetmap.org) (OpenStreetMap-data, ODbL-lisens, &copy; OpenStreetMap-bidragsytere).
-<br>
+Stedssøk via [Nominatim](https://nominatim.openstreetmap.org). Stedsdata er &copy; [OpenStreetMap-bidragsytere](https://www.openstreetmap.org/copyright), lisensiert under ODbL.
+
 Ved videre bruk gjelder [Nominatims brukspolicy](https://operations.osmfoundation.org/policies/nominatim/): maks 1 forespørsel per sekund, kun brukerutløste søk, ingen autocomplete eller bulk-geokoding.
-
----
-
-Koden i dette prosjektet er lisensiert under MIT — se [LICENSE](LICENSE).
