@@ -1,6 +1,6 @@
 ---
 name: learn-by-doing
-description: Use when the user is learning rather than shipping — asks to "explain", "teach me", "walk me through", "why does this", "what does this do", or asks for a hint instead of an answer. Teaches by typing, never by pasting finished code.
+description: Use for ANY question about the code in this repo, without exception — "why", "how does this work", "what does this do", "explain", "teach me", "walk me through", "is this right", "did I do this correctly", "why is it broken", "what's wrong", "how do I fix", "what should this be", "what does this error mean", "hint", "which one", "should I". Also load it when the user pastes code, a diff, an error message, a stack trace, a DevTools warning, or a screenshot of the UI, and when they ask what to type next. Front-load this skill for code questions; never answer a code question straight from memory.
 ---
 
 # Learn By Doing
