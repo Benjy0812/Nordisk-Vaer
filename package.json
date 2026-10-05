@@ -3,11 +3,13 @@
   "type": "module",
   "devDependencies": {
     "@tailwindcss/vite": "^4.3.3",
+    "cspell": "^10.3.6",
     "gh-pages": "^6.3.0",
     "prettier": "^3.9.9",
     "prettier-plugin-css-order": "^2.2.0",
     "prettier-plugin-tailwindcss": "^0.8.1",
-    "vite": "^8.3.2"
+    "vite": "^8.3.2",
+    "vitest": "^5.0.3"
   },
   "private": true,
   "scripts": {
@@ -15,6 +17,8 @@
     "dev:open": "vite --open",
     "format:check": "prettier --check .",
     "format": "prettier --write .",
+    "spell": "cspell lint .",
+    "test": "vitest run",
     "build": "vite build",
     "deploy": "gh-pages -d dist"
   }
