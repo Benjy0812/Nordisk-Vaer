@@ -77,6 +77,10 @@ export function arrowDirection(ctx, cx, cy, wind_from_direction, length) {
   ctx.stroke()
 }
 
+export function celsiusToFahrenheit(tempC) {
+  return (tempC * 9) / 5 + 32
+}
+
 // Update the temperature display based on the selected unit (Celsius or Fahrenheit)
 export function updateTemperature(air_temperature) {
   const tempC = air_temperature
@@ -84,7 +88,7 @@ export function updateTemperature(air_temperature) {
   if (tempToggle.value === 'Celsius') {
     document.getElementById('temp').textContent = `Temperatur: ${tempC} °C`
   } else {
-    const tempF = (tempC * 9) / 5 + 32
+    const tempF = celsiusToFahrenheit(air_temperature)
     tempF.toFixed(2)
     document.getElementById('temp').textContent = `Temperatur: ${tempF} °F`
   }
