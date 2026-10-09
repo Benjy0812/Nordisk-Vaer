@@ -1,0 +1,14 @@
+navngivelse
+stedssøk
+temperaturenhet
+vindretningsdiagram
+Vindretningspil
+benjy
+brukspolicy
+committes
+geokoding
+nominatim
+nominatims
+stedsdata
+værsymbol
+cspell
