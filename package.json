@@ -19,12 +19,12 @@
   "private": true,
   "scripts": {
     "dev": "vite",
-    "dev:open": "vite --open",
     "format:check": "prettier --check .",
     "format": "prettier --write .",
     "lint": "eslint",
-    "spell": "cspell lint .",
+    "spell": "cspell lint . --cache",
     "build": "vite build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist",
+    "check": "vite build && bun test && eslint && cspell lint . --cache && prettier --check ."
   }
 }
