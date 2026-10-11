@@ -1,5 +1,5 @@
 import { fetchWeather, getLocation } from './api.js'
-import { getCordsFromLocation } from './state.js'
+import { disableUi, enableUi, getCordsFromLocation } from './state.js'
 import {
   capitalizeFirstLetter,
   displayCurrentWeather,
@@ -12,15 +12,10 @@ async function getWeather() {
   const errorCard = document.getElementById('error-card')
   const infoCard = document.getElementById('info-card')
 
+  disableUi()
+  const startedAt = Date.now()
   infoCard.textContent = 'Fetching weather'
   infoCard.hidden = false
-
-  if (!locationName) {
-    infoCard.hidden = true
-    errorCard.textContent = 'Skriv inn en lokasjon'
-    errorCard.hidden = false
-    return
-  }
 
   // If error card is visible hide
   errorCard.hidden = true
@@ -28,6 +23,13 @@ async function getWeather() {
   document.getElementById('weather-info').hidden = true
 
   try {
+    if (!locationName) {
+      infoCard.hidden = true
+      errorCard.textContent = 'Skriv inn en lokasjon'
+      errorCard.hidden = false
+      return
+    }
+
     // Fetch latitude and longitude from users location input
     const locationCoordinates = await getLocation(locationName)
     if (!locationCoordinates.length) {
@@ -52,6 +54,9 @@ async function getWeather() {
     infoCard.hidden = true
     errorCard.textContent = 'Noe gikk galt. Prøv igjen'
     errorCard.hidden = false
+  } finally {
+    const remaining = Math.max(0, 1000 - (Date.now() - startedAt))
+    setTimeout(enableUi, remaining)
   }
 }
 
