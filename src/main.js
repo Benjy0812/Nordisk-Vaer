@@ -9,21 +9,29 @@ import {
 async function getWeather() {
   // Get the location name from users location input
   const locationName = document.getElementById('location-input').value.trim()
-  const errorCard = document.getElementById('search-error')
+  const errorCard = document.getElementById('error-card')
+  const infoCard = document.getElementById('info-card')
+
+  infoCard.textContent = 'Fetching weather'
+  infoCard.hidden = false
 
   if (!locationName) {
+    infoCard.hidden = true
     errorCard.textContent = 'Skriv inn en lokasjon'
     errorCard.hidden = false
     return
   }
 
+  // If error card is visible hide
   errorCard.hidden = true
+  // If weather is visible hide
   document.getElementById('weather-info').hidden = true
 
   try {
     // Fetch latitude and longitude from users location input
     const locationCoordinates = await getLocation(locationName)
     if (!locationCoordinates.length) {
+      infoCard.hidden = true
       errorCard.textContent = 'Fant ikke denne lokasjonen'
       errorCard.hidden = false
       return
@@ -37,9 +45,11 @@ async function getWeather() {
     displayCurrentWeather(weatherData)
     setupTempToggle()
     document.getElementById('initial-message').hidden = true
+    infoCard.hidden = true
     document.getElementById('weather-info').hidden = false
   } catch (err) {
     console.error(err)
+    infoCard.hidden = true
     errorCard.textContent = 'Noe gikk galt. Prøv igjen'
     errorCard.hidden = false
   }

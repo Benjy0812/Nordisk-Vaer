@@ -49,9 +49,16 @@
           </select>
         </div>
       </form>
+      <!-- Info message. Hidden until info from user action is needed -->
+      <p
+        id="info-card"
+        class="mx-auto my-2 inline-block max-w-125 rounded border-4 border-blue-500/50 bg-blue-500/25 p-2 font-bold text-blue-600"
+        role="alert"
+        hidden
+      ></p>
       <!-- Error message. Hidden until something goes wrong -->
       <p
-        id="search-error"
+        id="error-card"
         class="mx-auto my-2 inline-block max-w-125 rounded border-4 border-red-500/50 bg-red-500/25 p-2 font-bold text-red-600"
         role="alert"
         hidden
