@@ -39,11 +39,15 @@ honest Todos. Watch for:
 
 ## Offer the moves
 
-Do not stop at the report. Close with a direct question naming the exact
-IDs and the exact target status, so the user can answer with one word:
+Do not stop at the report. Close with a yes or no question naming the exact
+IDs and the exact target status:
 
 > `BEN-70` and `BEN-99` are done in the code but still Todo.
-> Shall I mark both Done?
+> Shall I mark both Done? Answer yes or no.
+
+Only a clear yes authorises a move. Never treat silence, a question back, or
+a reply naming different issues as approval. If the answer is ambiguous, ask
+again and move nothing.
 
 Then stop. Report the finding, ask, and wait for the answer. Do not treat
 the original request to run the sync as permission to move anything, and
@@ -54,7 +58,8 @@ offer to move it and wait.
 
 ## Moving issues
 
-- Ask first, always: exact IDs plus target status, then wait for a yes.
+- Ask first, always: exact IDs plus target status, then wait for a clear
+  yes. No yes, no move — not even when the status is obviously right.
 - Move only what the user named in their reply. No opportunistic changes,
   even for issues that obviously look done.
 - After moving, list what changed and what was left alone.
