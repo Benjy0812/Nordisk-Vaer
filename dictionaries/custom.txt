@@ -12,3 +12,9 @@ nominatims
 stedsdata
 værsymbol
 cspell
+Locationforecast
+lærehjelp
+brukerutløste
+partlycloudy
+geolocation
+uppercases

@@ -10,7 +10,7 @@ export default defineConfig({
     },
     {
       name: 'custom-project-words',
-      path: './dictionaries/custom-nb.txt',
+      path: './dictionaries/custom.txt',
       addWords: true,
     },
   ],
