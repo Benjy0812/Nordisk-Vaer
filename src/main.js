@@ -1,8 +1,10 @@
 import { fetchWeather, getLocation } from './api.js'
-import { disableUi, enableUi, getCordsFromLocation } from './state.js'
+import { getCordsFromLocation } from './state.js'
 import {
   capitalizeFirstLetter,
+  disableUi,
   displayCurrentWeather,
+  enableUi,
   setupTempToggle,
 } from './ui.js'
 
