@@ -1,17 +1,23 @@
-# Norsk Bokmål dictionaries (Hunspell)
+# Norsk Bokmål word lists
 
-- `nb_NO.dic` — 708,615 words, UTF-8, first line is the entry count (Hunspell format)
-- `nb_NO.aff` — affix/compound rules (`SET UTF-8`, `COMPOUNDFLAG z`, `COMPOUNDMIN 4`)
+These are cspell word lists, not Hunspell dictionaries. cspell reads them via
+`cspell.config.js`; nothing else in the project touches this directory.
 
-Source: `LibreOffice/dictionaries`, `no/` (`master` branch).
+- `nb_NO.txt` — 708,615 Bokmål words, one per line, UTF-8, sorted upstream
+- `custom.txt` — project words that aren't in the Bokmål list (`nominatim`,
+  `geokoding`, `temperaturenhet`, `partlycloudy`, …)
+
+Source: `LibreOffice/dictionaries`, `no/` (`master` branch), converted from the
+Hunspell `nb_NO.dic` by dropping the entry-count first line.
 Upstream: https://github.com/LibreOffice/dictionaries/tree/master/no
 
 Word list is pre-expanded: common joined words (sammensatte ord) such as
 `værvarsel`, `værmelding`, `trafikkork` are listed explicitly.
 
-Do not re-sort or reformat these files. The `.dic` body (after line 1)
-is upstream-sorted; the `.aff` rule order is load-bearing for Hunspell.
+To add a word the Bokmål list lacks, append it to `custom.txt`. Line order
+carries no meaning for cspell, so neither file needs sorting — unlike a
+Hunspell `.dic`/`.aff` pair, whose rule order is load-bearing.
 
 License: GNU GPL v2 (see `no/COPYING` upstream, package `dict-no` v3.0,
-maintainer Lars Bungum, origin spell-norwegian project).
-These two files are GPL-2.0, separate from the project's MIT code.
+maintainer Lars Bungum, origin spell-norwegian project). `nb_NO.txt` is
+GPL-2.0, separate from the project's MIT code.
