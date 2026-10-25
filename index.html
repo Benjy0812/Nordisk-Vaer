@@ -4,115 +4,134 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Nordisk Vær</title>
-    <script type="module" crossorigin src="/Nordisk-Vaer/assets/index-Dmie6CK0.js"></script>
-    <link rel="stylesheet" crossorigin href="/Nordisk-Vaer/assets/index-CMC9V2lA.css">
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M12 2v20M2 12h20M4.9 4.9l14.2 14.2M19.1 4.9L4.9 19.1' stroke='%2338bdf8' stroke-width='2.5' stroke-linecap='round'/></svg>"
+    />
+    <script type="module" crossorigin src="/Nordisk-Vaer/assets/index-CN-U4hV5.js"></script>
+    <link rel="stylesheet" crossorigin href="/Nordisk-Vaer/assets/index-zGJCWe7B.css">
   </head>
   <body
     class="flex min-h-screen flex-col text-center font-[Arial,Helvetica,sans-serif]"
   >
     <header>
       <h1 class="mx-auto my-2.5">Nordisk Vær</h1>
-      <div class="mx-auto my-0 flex max-w-125 flex-wrap justify-center gap-2">
-        <input
-          class="m-0 min-w-30 flex-1 rounded border border-neutral-300 p-2"
-          type="text"
-          id="location-input"
-          aria-label="Lokasjon"
-          placeholder="Lokasjon"
-        />
+      <!-- Search boxes. The IDs here are used in main.js, don't rename them -->
+      <form
+        id="weather-form"
+        class="mx-auto my-0 flex max-w-125 flex-wrap items-end justify-center gap-2 p-2"
+      >
+        <div class="flex flex-col">
+          <label class="text-sm font-bold" for="location-input">Lokasjon</label>
+          <input
+            class="m-0 h-10 min-w-30 rounded border border-neutral-300 p-2"
+            type="text"
+            id="location-input"
+            placeholder="Lokasjon"
+          />
+        </div>
         <button
-          class="m-0 flex rounded border border-neutral-300 bg-white px-3 py-2 hover:cursor-pointer hover:bg-zinc-100"
+          class="m-0 flex h-10 rounded border border-neutral-300 bg-white px-3 py-2 hover:cursor-pointer hover:bg-zinc-100"
           id="fetch-button"
-          type="button"
+          type="submit"
         >
           Hent
         </button>
-        <select
-          class="w-15 rounded-md border border-neutral-300 text-center"
-          id="temp-toggle"
-          aria-label="Temperaturenhet"
-        >
-          <option value="Celsius">°C</option>
-          <option value="Fahrenheit">°F</option>
-        </select>
-      </div>
+        <div class="flex flex-col">
+          <label class="text-sm font-bold" for="temp-toggle"
+            >Temperaturenhet</label
+          >
+          <select
+            class="h-10 w-auto rounded border border-neutral-300 text-center"
+            id="temp-toggle"
+          >
+            <option value="Celsius">°C</option>
+            <option value="Fahrenheit">°F</option>
+          </select>
+        </div>
+      </form>
+      <!-- Info message. Hidden until info from user action is needed -->
       <p
-        id="search-error"
-        class="mx-auto my-2 inline-block max-w-125 rounded border border-neutral-300 p-2 font-bold text-red-600"
+        id="info-card"
+        class="mx-auto my-2 inline-block max-w-125 rounded border-4 border-blue-500/50 bg-blue-500/25 p-2 font-bold text-blue-600"
         role="alert"
         hidden
       ></p>
+      <!-- Error message. Hidden until something goes wrong -->
+      <p
+        id="error-card"
+        class="mx-auto my-2 inline-block max-w-125 rounded border-4 border-red-500/50 bg-red-500/25 p-2 font-bold text-red-600"
+        role="alert"
+        hidden
+      ></p>
+      <p id="initial-message" class="p-2">Søk etter et sted for å se været</p>
     </header>
+    <!-- Weather results. Hidden until the first search works -->
     <main id="weather-info" hidden>
-      <p class="mx-auto my-2.5 font-bold" id="location-title">Tromsø</p>
+      <p class="mx-auto my-2.5 font-bold" id="location-title"></p>
       <div
         class="inline-flex transform-gpu flex-col items-center gap-2 will-change-transform *:cursor-pointer *:transition-transform *:duration-100 *:hover:scale-125"
+        aria-label="Værdata"
+        role="group"
       >
         <p
-          class="m-0 inline-block w-fit rounded p-1.25 font-bold shadow-[0_0_10px_rgba(0,0,0,0.25)]"
+          class="m-0 inline-block w-fit rounded p-1.25 font-bold shadow-md"
           id="temp"
-        >
-          Temperatur: 0.0 °C
-        </p>
+        ></p>
         <p
-          class="m-0 inline-block w-fit rounded p-1.25 font-bold shadow-[0_0_10px_rgba(0,0,0,0.25)]"
+          class="m-0 inline-block w-fit rounded p-1.25 font-bold shadow-md"
           id="pressure"
-        >
-          Trykk: 0 hPa
-        </p>
+        ></p>
         <p
-          class="m-0 inline-block w-fit rounded p-1.25 font-bold shadow-[0_0_10px_rgba(0,0,0,0.25)]"
+          class="m-0 inline-block w-fit rounded p-1.25 font-bold shadow-md"
           id="humidity"
-        >
-          Luftfuktighet: 00.0 %
-        </p>
+        ></p>
         <p
-          class="m-0 inline-block w-fit rounded p-1.25 font-bold shadow-[0_0_10px_rgba(0,0,0,0.25)]"
+          class="m-0 inline-block w-fit rounded p-1.25 font-bold shadow-md"
           id="clouds"
-        >
-          Skyer: 00.0 %
-        </p>
+        ></p>
         <p
-          class="m-0 inline-block w-fit rounded p-1.25 font-bold shadow-[0_0_10px_rgba(0,0,0,0.25)]"
+          class="m-0 inline-block w-fit rounded p-1.25 font-bold shadow-md"
           id="wind"
-        >
-          Vind: 0.0 m/s fra 00°
-        </p>
+        ></p>
         <p
-          class="m-0 inline-block w-fit rounded p-1.25 font-bold shadow-[0_0_10px_rgba(0,0,0,0.25)]"
+          class="m-0 inline-block w-fit rounded p-1.25 font-bold shadow-md"
           id="symbol"
-        >
-          Vær: type
-        </p>
+        ></p>
       </div>
       <div class="flex flex-col items-center gap-2">
         <br />
-        <p class="text-2xl font-bold">Wind direction:</p>
+        <p class="text-2xl font-bold">Vindretning:</p>
         <canvas
           class="rounded-2xl border border-gray-500"
           id="arrow"
           width="100"
           height="100"
+          aria-hidden="true"
         ></canvas>
       </div>
     </main>
-    <footer class="mt-auto flex flex-col items-center">
+    <!-- Credits. Required by MET and Nominatim terms, keep visible -->
+    <footer class="mt-auto flex flex-col items-center gap-1 p-2 text-sm">
       <p>
-        &copy; 2026 Basert på data fra
-        <a href="https://www.met.no/" target="_blank">MET</a>
-      </p>
-      <p class="text-center">
-        <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">
-          <img
-            class="mx-auto"
-            alt="Creative Commons-lisens"
-            src="https://i.creativecommons.org/l/by/4.0/88x31.png"
-          /> </a
-        >Dette verk er lisensieret under en
-        <a rel="license" href="https://creativecommons.org/licenses/by/4.0/"
-          >Creative Commons Navngivelse 4.0 Internasjonal lisens</a
+        &copy; 2026 Værdata fra
+        <a
+          class="text-blue-600 underline hover:text-blue-800"
+          href="https://www.met.no/"
+          target="_blank"
+          >MET Norway</a
         >
       </p>
+      <p>
+        Stedsdata &copy;
+        <a
+          class="text-blue-600 underline hover:text-blue-800"
+          href="https://www.openstreetmap.org/copyright"
+          target="_blank"
+          >OpenStreetMap-bidragsytere</a
+        >
+      </p>
+      <p>Koden er lisensiert under MIT.</p>
     </footer>
   </body>
 </html>
