@@ -16,9 +16,9 @@ async function getWeather() {
 
   disableUi()
   const startedAt = Date.now()
-  infoCard.textContent = 'Fetching weather'
+  infoCard.textContent = 'Henter vær'
   infoCard.hidden = false
-
+ 
   // If error card is visible hide
   errorCard.hidden = true
   // If weather is visible hide
