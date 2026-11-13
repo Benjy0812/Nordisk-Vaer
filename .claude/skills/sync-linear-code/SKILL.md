@@ -1,22 +1,22 @@
 ---
 name: sync-linear-code
-description: Use when the user asks to compare Linear issues against the code — what is done, what is still open, or what to work on next. Also use when they ask to mark, update, or check issue statuses.
+description: Compare Linear issues against the code to find what is done and what is still open, or check, mark, or update issue statuses. For picking what to work on next, use start-issue.
+model: opus
 ---
 
 # Sync Linear Code
 
 Check Linear issue statuses against what the code actually does, then
-propose the moves. The agent has write access to Linear, but never moves an
-issue without asking first — the user's answer is what authorises the change.
+propose the moves. Claude has write access to Linear (`save_issue`), but never
+moves an issue without asking first — the user's answer is what authorises the
+change.
 
 ## Inspect
 
-List all issues in the project (paginated dumps truncate — delegate
-extraction to a subagent, never paste the whole dump):
-
-```sh
-# via Linear tools: list_issues with project, limit 250
-```
+List the project's issues with `mcp__linear-server__list_issues` (`project:
+Nordisk-Vaer`, team `BEN`, `limit` 250, follow `cursor` while `hasNextPage`). Large results get saved to
+a file: extract only id, status, and title with `jq` instead of reading the
+whole dump. Skip completed and canceled issues unless verifying Dones.
 
 Read the current code files the issues touch (`src/*.js`, `index.html`).
 Trust the code on disk over issue descriptions and over memory.
@@ -28,8 +28,8 @@ file and line evidence. One unverified Done is worth less than ten open
 honest Todos. Watch for:
 
 - Claims that were true once but regressed (placeholders re-added, typo back)
-- Partial completions (format exists but lint missing — report as half-done)
-- Status drift from team renames (IDs change prefix when a team is renamed)
+- Partial completions (a check exists but is not wired into `bun run check`
+  or CI — report as half-done)
 
 ## Report two lists
 
@@ -42,24 +42,23 @@ honest Todos. Watch for:
 Do not stop at the report. Close with a yes or no question naming the exact
 IDs and the exact target status:
 
-> `BEN-70` and `BEN-99` are done in the code but still Todo.
-> Shall I mark both Done? Answer yes or no.
+> `BEN-x` and `BEN-y` are done in the code but still Todo.
+> Shall I mark `BEN-x` and `BEN-y` Done? Answer yes or no.
+
+Name every ID again in the question itself, never "both" or "all of them".
 
 Only a clear yes authorises a move. Never treat silence, a question back, or
 a reply naming different issues as approval. If the answer is ambiguous, ask
 again and move nothing.
 
-Then stop. Report the finding, ask, and wait for the answer. Do not treat
-the original request to run the sync as permission to move anything, and
-do not bundle the moves into the same turn as the report.
-
-The same pattern applies to In Progress: if work has clearly started,
-offer to move it and wait.
+Then stop and wait. The original request to run the sync is not permission
+to move anything, and the moves never go in the same turn as the report.
+The same applies to In Progress: if work has clearly started, offer the move
+and wait.
 
 ## Moving issues
 
-- Ask first, always: exact IDs plus target status, then wait for a clear
-  yes. No yes, no move — not even when the status is obviously right.
+- No yes, no move — not even when the status is obviously right.
 - Move only what the user named in their reply. No opportunistic changes,
   even for issues that obviously look done.
 - After moving, list what changed and what was left alone.

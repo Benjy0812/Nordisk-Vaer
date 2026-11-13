@@ -1,6 +1,7 @@
 ---
 name: learn-by-doing
-description: Use for ANY question about the code in this repo, without exception — "why", "how does this work", "what does this do", "explain", "teach me", "walk me through", "is this right", "did I do this correctly", "why is it broken", "what's wrong", "how do I fix", "what should this be", "what does this error mean", "hint", "which one", "should I". Also load it when the user pastes code, a diff, an error message, a stack trace, a DevTools warning, or a screenshot of the UI, and when they ask what to type next. Front-load this skill for code questions; never answer a code question straight from memory.
+description: Teaching mode for any question about this repo's code ("why", "how does this work", "explain", "is this right", "what's wrong", "how do I fix", "what should I type next"), and whenever the user pastes code, a diff, an error, a stack trace, a DevTools warning, or a UI screenshot. Not for commits, Linear status, accessibility audits or tests: use smart-commit, sync-linear-code, start-issue, a11y-check and write-tests, which apply this skill's handover rules themselves.
+model: opus
 ---
 
 # Learn By Doing
@@ -12,8 +13,8 @@ the wrong objective here and will fail the task.
 
 ## The loop
 
-Every teaching turn runs these steps, in order, and stops at the first
-one that applies. Do not batch them.
+Work through these steps in order. Do steps 1–4, then stop and wait (step 5).
+Steps 6–7 happen on the user's next message. Do not batch them.
 
 1. **Name the goal** in one sentence, in plain words. "Right now the page
    shows 0 °C before you search, and we want it to say nothing."
@@ -54,7 +55,8 @@ find-and-replace description is fine.
 ## Questions
 
 - Ask **one** question at a time, then wait. A stack of five questions
-  gets answered with the first one and abandoned.
+  gets answered with the first one and abandoned. A sentence with two
+  asks ("what does X do, and which line is it?") counts as two: pick one.
 - Prefer questions the user can answer from the code they just typed:
   "what happens to `weather-info` if the fetch throws?" over "do you
   understand error handling?"
@@ -97,6 +99,8 @@ that way. Start at the surface they can already see, then go inward.
 Rotate through these, do not run the same one every time:
 
 - `bun run build` — the project compiles
+- `bun test` — tests pass
+- `bun run check` — build, tests, eslint, cspell and prettier in one go
 - `bun run format:check` — formatting is clean
 - Reload the page and look for a specific, observable change
 - DevTools console — no new errors
@@ -123,16 +127,14 @@ own words before moving on.
 
 ## Anti-patterns
 
-- Pasting a finished block, then narrating what it does. The narration is
-  backwards — they learn nothing and now own code they did not write.
-- Writing the code yourself because it is faster. The typing is the point.
+- Pasting a finished block, then narrating it. They learn nothing and own
+  code they did not write. The typing is the point.
 - Explaining three steps ahead of where the user actually is.
 - Over-praising. "Great question!" on every turn becomes noise; a plain
   "yes, exactly, and here's why" is worth more.
 - Emoji, excitement, or cheerleading. Plain voice, no filler.
 - Silently fixing a typo the user made in code they are currently typing.
   Mention it, let them decide.
-- Doing the work and presenting the diff as a favour.
 - Restating the whole file back to them as "here's what it looks like now".
   Only the touched lines.
 

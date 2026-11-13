@@ -1,6 +1,7 @@
 ---
 name: smart-commit
-description: Use when the user asks to commit, split a commit, or write commit messages. Group changed files into logical commits by dependency and similarity, then commit each group separately. Use this whenever the user says "commit", "commit this", "split that commit", or asks for a commit message, even if they don't mention grouping.
+description: Commit changes, split a commit, or write commit messages. Groups changed files into logical commits by dependency and similarity and commits each group separately. Use whenever the user says "commit", "split that commit", or asks for a commit message.
+model: sonnet
 ---
 
 # Smart Commit
@@ -57,10 +58,9 @@ Build groups using these rules, in order:
 4. **Order commits foundation-first:** config/data → logic → UI/docs, so
    each commit leaves the tree working.
 
-If one file holds two unrelated concerns, split it by hunk with
-`git add -p` only when the hunks are cleanly separable. If interactive
-mode is not available or the hunks are tangled, keep the file in one
-commit and say so in the plan.
+If one file holds two unrelated concerns, keep it in one commit and say so
+in the plan. Interactive `git add -p` does not work here; split by hunk only
+if the user asks, by staging a patch with `git apply --cached`.
 
 ## 3. Propose before committing
 
@@ -106,27 +106,26 @@ behavior per message. If a message needs "and", it is probably two
 commits. A stranger reading the log should understand every message — no
 insider references, no backstory only you know.
 
+End every message with the attribution trailer the session instructs
+(e.g. `Co-Authored-By: ...`), after any `Refs:` line.
+
 Add `Refs: BEN-n` as a trailer on its own line after a blank line when the
 commit advances a Linear issue. Take the ID from the branch name or from
 what the user said. Never invent IDs. If you do not know it, leave it out.
 
 ## 5. Verify
 
-Before the first commit, run the build once, if the repo has a build
-script:
+Before the first commit, run the full check once:
 
 ```sh
-bun run build
+bun run check
 ```
 
-The build reads the whole working tree, not just staged files, so it is the
-same result for every group. Run it once, before the first commit. If it
-fails, stop and report. Do not commit broken code.
+It covers build, tests, eslint, cspell and prettier over the whole working
+tree, so one run serves every group. If it fails, stop and report. Do not
+commit broken code.
 
-Prettier is the opposite: it checks the files you name, so it must run once
-per group, against that group's files only. Running it once at the start
-would pass or fail on files that are not in this commit, which tells you
-nothing about whether this commit is clean.
+Prettier also runs per group, against that group's files only (below).
 
 For each group:
 
@@ -148,7 +147,7 @@ Never use `--no-verify`.
 `amend` cannot split. It only edits the tip. Unmake and re-commit:
 
 ```sh
-git log --oneline @{u}..   # unpushed commits (no upstream means all are local)
+git log --oneline @{u}..   # unpushed commits; if it errors (no upstream), use origin/main..
 git reset HEAD~1           # uncommits and unstages, keeps the working tree
 ```
 
