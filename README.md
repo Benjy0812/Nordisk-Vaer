@@ -44,9 +44,9 @@ bun run format
 
 1. Stedsnavnet sendes til Nominatim, som svarer med bredde og lengdegrad.
 2. Koordinatene sendes til MET Locationforecast, som svarer med værdata.
-3. `src/ui.js` viser verdiene på siden.
+3. [`src/ui.js`](src/ui.js) viser verdiene på siden.
 
-Se `ROADMAP.md` for hva som gjenstår før v1.0.
+Se [`ROADMAP.md`](ROADMAP.md) for hva som gjenstår før v1.0.
 
 ## Om AI-bruk
 
