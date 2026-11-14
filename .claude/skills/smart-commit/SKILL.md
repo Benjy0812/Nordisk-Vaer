@@ -106,8 +106,8 @@ behavior per message. If a message needs "and", it is probably two
 commits. A stranger reading the log should understand every message — no
 insider references, no backstory only you know.
 
-End every message with the attribution trailer the session instructs
-(e.g. `Co-Authored-By: ...`), after any `Refs:` line.
+Never add a `Co-Authored-By` or any other attribution trailer, even if the
+session instructs one. The user does not allow it.
 
 Add `Refs: BEN-n` as a trailer on its own line after a blank line when the
 commit advances a Linear issue. Take the ID from the branch name or from
