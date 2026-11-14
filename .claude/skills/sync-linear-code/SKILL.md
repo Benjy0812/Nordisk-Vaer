@@ -39,28 +39,45 @@ honest Todos. Watch for:
 
 ## Offer the moves
 
-Do not stop at the report. Close with a yes or no question naming the exact
-IDs and the exact target status:
+Do not stop at the report. Turn it into a table of proposed moves, one row
+per issue whose Linear status differs from what the code shows:
 
-> `BEN-x` and `BEN-y` are done in the code but still Todo.
-> Shall I mark `BEN-x` and `BEN-y` Done? Answer yes or no.
+| Issue | Title | Now  | Proposed    | Evidence                              |
+| ----- | ----- | ---- | ----------- | ------------------------------------- |
+| BEN-x | ...   | Todo | Done        | `src/a.js:12`                         |
+| BEN-y | ...   | Todo | In Progress | `src/b.js:30` (started, not wired up) |
 
-Name every ID again in the question itself, never "both" or "all of them".
+Rules for what may appear in the table:
 
-Only a clear yes authorises a move. Never treat silence, a question back, or
-a reply naming different issues as approval. If the answer is ambiguous, ask
-again and move nothing.
+- **Done** only when the code does everything the issue says, confirmed with
+  file:line evidence. If the code does less than the issue says, it is not
+  Done. If it is partly there, propose **In Progress** instead, and say what
+  is missing. Never ask the user to approve a Done the code does not back up.
+- **In Progress** when work has clearly started but is not finished.
+- A Done in Linear that the code no longer backs up goes in the report as a
+  mismatch. Propose moving it back (e.g. In Progress) in the table, never
+  leave it silently.
+- Leave out issues that already match the code. Name every ID in the table,
+  never "the rest".
 
-Then stop and wait. The original request to run the sync is not permission
-to move anything, and the moves never go in the same turn as the report.
-The same applies to In Progress: if work has clearly started, offer the move
-and wait.
+Close with one question under the table:
+
+> Continue and mark these? Answer **yes**, or tell me what is wrong or what
+> you are unsure about.
+
+Only a clear yes authorises the moves. Silence, a question back, or a reply
+naming different issues is not approval. If the user says a row is wrong or
+they are unsure, re-check that row in the code, fix the table, and ask again.
+Move nothing until a yes.
+
+Then stop and wait. The original request to run the sync is not permission to
+move anything, and the moves never go in the same turn as the table.
 
 ## Moving issues
 
-- No yes, no move — not even when the status is obviously right.
-- Move only what the user named in their reply. No opportunistic changes,
-  even for issues that obviously look done.
+- No yes, no move, even when the status is obviously right.
+- After a yes, move exactly the rows in the table, nothing else. If the user
+  corrected a row, move it as corrected.
 - After moving, list what changed and what was left alone.
 - Never close an issue whose Done is unverified, and never open a
   discussion you cannot support with code evidence.
