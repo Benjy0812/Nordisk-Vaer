@@ -90,14 +90,22 @@ export function celsiusToFahrenheit(tempC) {
   return (tempC * 9) / 5 + 32
 }
 
-// Update the temperature display based on the selected unit (Celsius or Fahrenheit)
-export function updateTemperature(tempC) {
+export function formatTemperature(temp, decimals) {
+  return temp.toFixed(decimals)
+}
+
+function tempToggleValue() {
   const tempToggle = document.getElementById('temp-toggle')
-  if (tempToggle.value === 'Celsius') {
-    document.getElementById('temp').textContent = `Temperatur: ${tempC} °C`
+  return tempToggle.value
+}
+
+function updateTemperature(temp) {
+  const decimals = 1
+  if (tempToggleValue() === 'Celsius') {
+    document.getElementById('temp').textContent =
+      `Temperatur: ${formatTemperature(temp, decimals)} °C`
   } else {
-    const tempF = celsiusToFahrenheit(tempC)
-    const shownF = tempF.toFixed(1)
-    document.getElementById('temp').textContent = `Temperatur: ${shownF} °F`
+    document.getElementById('temp').textContent =
+      `Temperatur: ${formatTemperature(celsiusToFahrenheit(temp), decimals)} °F`
   }
 }
