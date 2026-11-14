@@ -47,8 +47,7 @@ export function displayCurrentWeather(data) {
     current.data.next_1_hours?.summary?.symbol_code ?? 'Unknown'
 
   // Update the weather DOM elements with the fetched weather data
-  document.getElementById('temp').textContent =
-    `Temperatur: ${air_temperature} °C`
+  updateTemperature(air_temperature)
   document.getElementById('pressure').textContent =
     `Trykk: ${air_pressure_at_sea_level} hPa`
   document.getElementById('humidity').textContent =
@@ -58,8 +57,6 @@ export function displayCurrentWeather(data) {
   document.getElementById('wind').textContent =
     `Vind: ${wind_speed} m/s fra ${wind_from_direction}°`
   document.getElementById('symbol').textContent = `Vær: ${symbolCode}`
-
-  updateTemperature(air_temperature)
 
   const canvas = document.getElementById('arrow')
   const ctx = canvas.getContext('2d')
@@ -94,14 +91,13 @@ export function celsiusToFahrenheit(tempC) {
 }
 
 // Update the temperature display based on the selected unit (Celsius or Fahrenheit)
-export function updateTemperature(air_temperature) {
-  const tempC = air_temperature
+export function updateTemperature(tempC) {
   const tempToggle = document.getElementById('temp-toggle')
   if (tempToggle.value === 'Celsius') {
     document.getElementById('temp').textContent = `Temperatur: ${tempC} °C`
   } else {
-    const tempF = celsiusToFahrenheit(air_temperature)
-    tempF.toFixed(2)
-    document.getElementById('temp').textContent = `Temperatur: ${tempF} °F`
+    const tempF = celsiusToFahrenheit(tempC)
+    const shownF = tempF.toFixed(1)
+    document.getElementById('temp').textContent = `Temperatur: ${shownF} °F`
   }
 }
