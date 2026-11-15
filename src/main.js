@@ -54,8 +54,12 @@ async function getWeather() {
   } catch (err) {
     console.error(err)
     infoCard.hidden = true
-    errorCard.textContent = 'Noe gikk galt. Prøv igjen'
     errorCard.hidden = false
+    if (err?.message === 'NetworkError') {
+      errorCard.textContent = 'Sjekk nettverk'
+    } else {
+      errorCard.textContent = 'Noe gikk galt. Prøv igjen'
+    }
   } finally {
     const remaining = Math.max(0, 1000 - (Date.now() - startedAt))
     setTimeout(enableUi, remaining)

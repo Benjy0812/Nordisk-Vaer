@@ -1,17 +1,26 @@
+async function fetchJson(url, errorMessage) {
+  let response
+  try {
+    response = await fetch(url)
+  } catch {
+    throw new Error('NetworkError')
+  }
+  if (!response.ok) throw new Error(errorMessage)
+  return await response.json()
+}
+
 // Fetch latitude and longitude from the Nominatim API based on users location
 export async function getLocation(place) {
-  const response = await fetch(
+  return fetchJson(
     `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(place)}&format=json&limit=1&email=developer.cause102@passmail.net`,
+    'Failed to get location',
   )
-  if (!response.ok) throw new Error('Failed to get location')
-  return await response.json()
 }
 
 // Fetch weather data from MET API with latitude and longitude from nominatim API
 export async function fetchWeather(lat, lon) {
-  const response = await fetch(
+  return fetchJson(
     `https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=${lat}&lon=${lon}`,
+    'Failed to fetch weather',
   )
-  if (!response.ok) throw new Error('Failed to fetch weather')
-  return await response.json()
 }
