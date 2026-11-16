@@ -34,6 +34,12 @@ Read the files the issue touches (`src/*.js`, `index.html`). Trust the code
 on disk over the issue text. If it looks already done, say so with
 `file:line` evidence and suggest `sync-linear-code`. Do not move it.
 
+For an error-handling issue, list each failure path and the branch that
+handles it (`file:line`) before you propose a step.
+
+Name side findings as possible new issues. Do not create them, and do not
+add them to this issue's scope.
+
 ## 4. Present the start
 
 Keep it to this shape:
