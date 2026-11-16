@@ -52,13 +52,18 @@ async function getWeather() {
     infoCard.hidden = true
     document.getElementById('weather-info').hidden = false
   } catch (err) {
-    console.error(err)
     infoCard.hidden = true
     errorCard.hidden = false
     if (err?.message === 'NetworkError') {
       errorCard.textContent = 'Sjekk nettverk'
     } else {
       errorCard.textContent = 'Noe gikk galt. Prøv igjen'
+      if (
+        err?.message !== 'Failed to get location' &&
+        err?.message !== 'Failed to fetch weather'
+      ) {
+        console.error(err)
+      }
     }
   } finally {
     const remaining = Math.max(0, 1000 - (Date.now() - startedAt))
