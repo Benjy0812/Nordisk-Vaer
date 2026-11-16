@@ -53,6 +53,8 @@ Rules for what may appear in the table:
   file:line evidence. If the code does less than the issue says, it is not
   Done. If it is partly there, propose **In Progress** instead, and say what
   is missing. Never ask the user to approve a Done the code does not back up.
+- For a parent issue or milestone, show `file:line` evidence for each child
+  before you propose Done. Done on all children in Linear is not evidence.
 - **In Progress** when work has clearly started but is not finished.
 - A Done in Linear that the code no longer backs up goes in the report as a
   mismatch. Propose moving it back (e.g. In Progress) in the table, never
