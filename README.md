@@ -5,10 +5,16 @@ En enkel SPA nettside som henter værdata fra MET Norway og viser dem på en ove
 ## Funksjoner
 
 - Søk etter sted. Stedsnavnet blir sendt til Nominatim og får bredde og lengdegrad som blir brukt for å hente værdata fra MET API
-- Viser temperatur, trykk, luftfuktighet, skydekke, vind og (værsymbol ikke ferdig)
+- Viser temperatur, trykk, luftfuktighet, skydekke og vind
 - Bytt mellom Celsius og Fahrenheit uten å søke på nytt
 - Vindretningspil på canvas
 - Feilmeldinger vises inline, og ingen falske data før første søk
+
+## planlagt
+- Lesbare værtyper
+- Værikoner
+- Kompassretninger
+- Tidspunktet varselet gjelder for og når været var sist oppdatert
 
 ## Kom i gang
 
