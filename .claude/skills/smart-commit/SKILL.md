@@ -132,7 +132,8 @@ For each group:
 1. Stage by explicit path: `git add <files>`. Never `git add .` or `-A`.
 2. Confirm `git diff --cached --name-only` lists exactly this group. If
    anything extra is staged, stop and flag it.
-3. Run `bunx prettier --check <files>` on this group's files. Must pass.
+3. Run `bunx prettier --check --ignore-unknown <files>` on this group's
+   files. Must pass.
 4. Commit, then repeat for the next group.
 
 Prettier failing right after a checkout usually means CRLF. Fix it with
