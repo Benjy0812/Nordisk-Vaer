@@ -11,6 +11,9 @@ propose the moves. Claude has write access to Linear (`save_issue`), but never
 moves an issue without asking first — the user's answer is what authorises the
 change.
 
+This skill only syncs statuses. Do not suggest next work, rank issues, or
+add review notes about the code.
+
 ## Inspect
 
 List the project's issues with `mcp__linear-server__list_issues` (`project:
@@ -19,7 +22,8 @@ a file: extract only id, status, and title with `jq` instead of reading the
 whole dump. Skip completed and canceled issues unless verifying Dones.
 
 Read the current code files the issues touch (`src/*.js`, `index.html`).
-Trust the code on disk over issue descriptions and over memory.
+Trust the code on disk over issue descriptions and over memory. Use only
+issue IDs from the list result.
 
 ## Verify every Done
 
@@ -31,11 +35,16 @@ honest Todos. Watch for:
 - Partial completions (a check exists but is not wired into `bun run check`
   or CI — report as half-done)
 
-## Report two lists
+## Report only the mismatches
 
-1. **Done in Linear, checked against code** — confirm each with evidence,
-   or flag mismatches immediately.
+Do not list issues whose Linear status already matches the code.
+
+1. **Done in Linear, not done in code** — say what is missing, with
+   file:line evidence.
 2. **Done in code, not Done in Linear** — with file:line evidence per item.
+
+If a list is empty, say "none". Name in one line any Done that code cannot
+prove (for example, a manual check).
 
 ## Offer the moves
 
@@ -83,9 +92,3 @@ move anything, and the moves never go in the same turn as the table.
 - After moving, list what changed and what was left alone.
 - Never close an issue whose Done is unverified, and never open a
   discussion you cannot support with code evidence.
-
-## Suggest next work
-
-Order by: finish In Progress first, coupled UI behaviors together, quick
-wins (one-liners) before epics. Never invent issue IDs and never claim
-code you have not read.
