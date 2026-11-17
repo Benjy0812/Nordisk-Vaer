@@ -11,6 +11,7 @@ En enkel SPA nettside som henter værdata fra MET Norway og viser dem på en ove
 - Feilmeldinger vises inline, og ingen falske data før første søk
 
 ## planlagt
+
 - Lesbare værtyper
 - Værikoner
 - Kompassretninger
